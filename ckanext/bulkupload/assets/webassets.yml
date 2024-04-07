@@ -1,0 +1,14 @@
+# bulkupload-js:
+#   filter: rjsmin
+#   output: ckanext-bulkupload/%(version)s-bulkupload.js
+#   contents:
+#     - js/bulkupload.js
+#   extra:
+#     preload:
+#       - base/main
+
+# bulkupload-css:
+#   filter: cssrewrite
+#   output: ckanext-bulkupload/%(version)s-bulkupload.css
+#   contents:
+#     - css/bulkupload.css
