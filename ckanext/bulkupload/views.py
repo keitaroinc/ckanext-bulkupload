@@ -8,30 +8,33 @@ import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
 
 from ckan.common import g, request
+from ckan.logic.action import get, update
 
 bulkupload = Blueprint("bulkupload", __name__)
 
 
 class BulkResourceUpload(MethodView):
-    def _prepare(self):
+
+    def get(self, pkg_name):
         context = {
             "model": model,
             "session": model.Session,
             "user": g.user,
-            "auth_user_obj": g.userobj,
         }
-  
-    def get(self, pkg_name):
-        self._prepare()
+        pkg_name_dict = {
+            'id': pkg_name,
+            }
+        pkg_dict = get.package_show(context, pkg_name_dict)
         
         return base.render(
-            u'package/snippets/resource_form_bulk.html', {
-                u'pkg_name': pkg_name
+            'package/new_resource_not_draft_bulk.html', {
+                'pkg_name': pkg_name,
+                'pkg_dict': pkg_dict,
             }
         )
     
     def post(self, pkg_name):
-        return tk.render("package/snippets/resource_form_bulk.html")
+        return tk.render("package/upload_bulk_sucess.html")
 
 
 bulkupload.add_url_rule("/dataset/<pkg_name>/resource/new/bulkupload",
