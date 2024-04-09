@@ -1,13 +1,14 @@
 from flask import Blueprint
 from flask.views import MethodView
 
-
+from flask import request
+import ssl
 import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
 
-from ckan.common import g, request
+from ckan.common import g
 from ckan.logic.action import get, update
 
 bulkupload = Blueprint("bulkupload", __name__)
@@ -33,7 +34,10 @@ class BulkResourceUpload(MethodView):
             }
         )
     
-    def post(self, pkg_name):
+    def post(pkg_name):
+         
+        tk.get_action("call_add_resouce_api")(pkg_name)
+
         return tk.render("package/upload_bulk_sucess.html")
 
 
