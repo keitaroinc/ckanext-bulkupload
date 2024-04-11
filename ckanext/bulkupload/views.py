@@ -6,10 +6,11 @@ import ckan.logic as logic
 import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
 import logging
-
+import os
+from pathlib import Path
 
 from ckan.common import g
-from ckan.logic.action import get, create
+from ckan.logic.action import get
 import flask
 
 
@@ -57,12 +58,14 @@ def bulk_resource_upload(pkg_name):
                 'name': f.filename,
                 'url': f.filename,
                 'url_type': 'upload',
-                'upload': open('/home/blagoja/Downloads/sample_data/5MB', 'rb'),
             }
 
             x = tk.get_action("resource_create")(context, data_dict)
-            upload_path= storage_path + '/resource/'+ x['id'][0:3] + "/" + x['id'][3:6]
-            upload_filename= x['id'][6:]
+            upload_path = storage_path + '/resources/' + x['id'][0:3] + "/" + x['id'][3:6]
+            upload_filename = x['id'][6:]
+            filepath = Path(os.path.join(upload_path, upload_filename))
+            filepath.parent.mkdir(parents=True, exist_ok=True)
+            f.save(os.path.join(upload_path, upload_filename))
 
         return base.render(
             'package/upload_bulk_sucess.html'
