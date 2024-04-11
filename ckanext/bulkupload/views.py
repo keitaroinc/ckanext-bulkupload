@@ -75,7 +75,7 @@ def bulk_resource_upload(pkg_name):
             'pkg_dict': pkg_dict
         }
         return base.render(
-            'package/read.html', extra_vars
+            'package/activity_bulk.html', extra_vars
         )
 
 
