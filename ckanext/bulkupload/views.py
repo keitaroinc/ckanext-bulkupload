@@ -5,14 +5,23 @@ import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
+import logging
 
 
 from ckan.common import g
 from ckan.logic.action import get, create
 import flask
 
+
+log = logging.getLogger(__name__)
+
 get_action = logic.get_action
 bulkupload = Blueprint("bulkupload", __name__)
+try:
+    storage_path = config.get('ckan.storage_path')
+except:
+    log.critical('''Please specify a ckan.storage_path in your config
+                         for your uploads''')
 
 
 def bulk_resource_upload(pkg_name):
@@ -44,7 +53,7 @@ def bulk_resource_upload(pkg_name):
         for f in uploaded_files:
 
             data_dict = {
-                'package_id': 'cloudstorage-03',
+                'package_id': pkg_name,
                 'name': f.filename,
                 'url': f.filename,
                 'url_type': 'upload',
@@ -52,6 +61,8 @@ def bulk_resource_upload(pkg_name):
             }
 
             x = tk.get_action("resource_create")(context, data_dict)
+            upload_path= storage_path + '/resource/'+ x['id'][0:3] + "/" + x['id'][3:6]
+            upload_filename= x['id'][6:]
 
         return base.render(
             'package/upload_bulk_sucess.html'
