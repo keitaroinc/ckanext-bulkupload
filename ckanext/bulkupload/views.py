@@ -50,6 +50,10 @@ def bulk_resource_upload(pkg_name):
             "session": model.Session,
             "user": g.user,
         }
+        pkg_name_dict = {
+            'id': pkg_name,
+            }
+        pkg_dict = get.package_show(context, pkg_name_dict)
         uploaded_files = flask.request.files.getlist("file[]")
         for f in uploaded_files:
 
@@ -67,9 +71,11 @@ def bulk_resource_upload(pkg_name):
             filepath.parent.mkdir(parents=True, exist_ok=True)
             f.save(os.path.join(upload_path, upload_filename))
 
+        extra_vars= {
+            'pkg_dict': pkg_dict
+        }
         return base.render(
-            'package/upload_bulk_sucess.html'
-
+            'package/read.html', extra_vars
         )
 
 
