@@ -5,12 +5,16 @@ import ssl
 ssl.match_hostname = lambda cert, hostname: True
 
 
-def call_add_resouce_api():
+def call_add_resouce_api1(*args, **kwargs):
     
+    print("============================1==========================")
+    print("============================1==========================")
+    print("============================1==========================")
+    print("============================1==========================")
     print("============================1==========================")
 
 
-def call_add_resouce_api1():
+def call_add_resouce_api(*args, **kwargs):
     
     print("============================1==========================")
     ssl.match_hostname = lambda cert, hostname: True

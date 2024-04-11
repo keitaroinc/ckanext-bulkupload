@@ -37,8 +37,15 @@ def bulk_resource_upload(pkg_name):
             }
         )
     elif flask.request.method == 'POST':
+        context = {
+            "model": model,
+            "session": model.Session,
+            "user": g.user,
+        }
 
-        tk.get_action("call_add_resouce_api")
+        x = tk.get_action("call_add_resouce_api")(context, {})
+
+        extra_vars = {"x": x}
         return base.render(
             'package/upload_bulk_sucess.html'
 
