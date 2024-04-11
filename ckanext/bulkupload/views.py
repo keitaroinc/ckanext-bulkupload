@@ -1,9 +1,5 @@
 from flask import Blueprint
-from flask.views import MethodView
-
-import requests
-import json
-import ssl
+from ckan.common import config
 import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins.toolkit as tk
@@ -42,10 +38,16 @@ def bulk_resource_upload(pkg_name):
             "session": model.Session,
             "user": g.user,
         }
+        data_dict = {
+            'package_id': 'cloudstorage-03',
+            'name': 'Test Name3',
+            'url': 'Test Name3',
+            'url_type': 'upload',
+            'upload': open('/home/blagoja/Downloads/sample_data/5MB', 'rb'),
+        }
 
-        x = tk.get_action("call_add_resouce_api")(context, {})
+        x = tk.get_action("resource_create")(context, data_dict)
 
-        extra_vars = {"x": x}
         return base.render(
             'package/upload_bulk_sucess.html'
 
