@@ -8,7 +8,11 @@ ssl.match_hostname = lambda cert, hostname: True
 def call_add_resouce_api():
     
     print("============================1==========================")
-    pkg_name = 'cloudstorage-03'
+
+
+def call_add_resouce_api1():
+    
+    print("============================1==========================")
     ssl.match_hostname = lambda cert, hostname: True
     url = "http://localhost:5000/api/3/action/resource_create"
     headers = {
@@ -24,8 +28,6 @@ def call_add_resouce_api():
     }
     print("===========================3===========================")
     response = requests.post(url, headers=headers, files=files, verify=False)
-    print(pkg_name)
-    print("=============================4=========================")
     print(response)
-    print("===============================5=======================")
+    print('====================4==================================')
     return response

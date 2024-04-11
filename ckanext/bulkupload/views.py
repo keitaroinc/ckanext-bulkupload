@@ -1,7 +1,8 @@
 from flask import Blueprint
 from flask.views import MethodView
 
-from flask import request
+import requests
+import json
 import ssl
 import ckan.model as model
 import ckan.logic as logic
@@ -9,14 +10,16 @@ import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
 
 from ckan.common import g
-from ckan.logic.action import get, update
+from ckan.logic.action import get, create
+import flask
 
+get_action = logic.get_action
 bulkupload = Blueprint("bulkupload", __name__)
 
 
-class BulkResourceUpload(MethodView):
+def bulk_resource_upload(pkg_name):
 
-    def get(self, pkg_name):
+    if flask.request.method == 'GET':
         context = {
             "model": model,
             "session": model.Session,
@@ -33,14 +36,15 @@ class BulkResourceUpload(MethodView):
                 'pkg_dict': pkg_dict,
             }
         )
-    
-    def post(pkg_name):
-         
-        tk.get_action("call_add_resouce_api")(pkg_name)
+    elif flask.request.method == 'POST':
 
-        return tk.render("package/upload_bulk_sucess.html")
+        tk.get_action("call_add_resouce_api")
+        return base.render(
+            'package/upload_bulk_sucess.html'
+
+        )
 
 
 bulkupload.add_url_rule("/dataset/<pkg_name>/resource/new/bulkupload",
-                        view_func=BulkResourceUpload.as_view(str("bulk_upload")),
+                        view_func=bulk_resource_upload,
                         methods=("GET", "POST"))
