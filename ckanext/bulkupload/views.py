@@ -1,9 +1,11 @@
 from flask import Blueprint
+from flask import request
 from ckan.common import config
 import ckan.model as model
 import ckan.logic as logic
 import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
+
 
 from ckan.common import g
 from ckan.logic.action import get, create
@@ -38,15 +40,18 @@ def bulk_resource_upload(pkg_name):
             "session": model.Session,
             "user": g.user,
         }
-        data_dict = {
-            'package_id': 'cloudstorage-03',
-            'name': 'Test Name3',
-            'url': 'Test Name3',
-            'url_type': 'upload',
-            'upload': open('/home/blagoja/Downloads/sample_data/5MB', 'rb'),
-        }
+        uploaded_files = flask.request.files.getlist("file[]")
+        for f in uploaded_files:
 
-        x = tk.get_action("resource_create")(context, data_dict)
+            data_dict = {
+                'package_id': 'cloudstorage-03',
+                'name': f.filename,
+                'url': f.filename,
+                'url_type': 'upload',
+                'upload': open('/home/blagoja/Downloads/sample_data/5MB', 'rb'),
+            }
+
+            x = tk.get_action("resource_create")(context, data_dict)
 
         return base.render(
             'package/upload_bulk_sucess.html'

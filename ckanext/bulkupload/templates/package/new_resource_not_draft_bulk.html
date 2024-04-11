@@ -17,9 +17,9 @@
 {% endblock %}
 
 {% block form %}
-<form  id="bulk_upload_form" method="post">
+<form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
 
-    <input syle="margin-bottom:20px;" class ='btn btn-default' type="file" name="file[]" multiple=""> 
+    <input syle="margin-bottom:20px;" class ='btn btn-default' type="file" name="file[]" multiple> 
     {{ form.textarea('desc', id='field-description', label=_('Description'),  value='') }}
 
     <div style="display:flex; gap:10px">
