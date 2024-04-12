@@ -14,7 +14,7 @@
 
 {% block content_primary_nav %}
   <li class="active"><a href="#"><i class="fa fa-pencil-square-o"></i> {{ _('New resource') }}</a></li>
-  <li class="">{% link_for _('Bulk Upload'), named_route='bulkupload.bulk_upload', pkg_dict=pkg_dict, pkg_name=pkg_name,  icon='plus-square' %}</li>
+  <li class="">{% link_for _('Bulk Upload'), named_route='bulkupload.bulk_resource_upload', pkg_name=pkg_name,  icon='plus-square' %}</li>
 {% endblock %}
 
 {% block secondary_content %}

@@ -1,0 +1,67 @@
+# Spanish translations for ckanext-bulkupload.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the ckanext-bulkupload
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-bulkupload 0.0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-04-12 09:28+0200\n"
+"PO-Revision-Date: 2024-04-12 09:28+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ckanext/bulkupload/templates/package/activity_bulk.html:3
+#: ckanext/bulkupload/templates/package/activity_bulk.html:8
+msgid "Activity Stream"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft.html:3
+#: ckanext/bulkupload/templates/package/new_resource_not_draft.html:4
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:4
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:5
+msgid "Add resource"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft.html:8
+msgid "Add New Resource"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft.html:16
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:11
+msgid "New resource"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft.html:17
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:12
+msgid "Bulk Upload"
+msgstr "Carga Masiva"
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:23
+msgid "Description"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/new_resource_not_draft_bulk.html:26
+msgid "Upload"
+msgstr ""
+
+#: ckanext/bulkupload/templates/package/snippets/bulk_sucess.html:1
+msgid "Bulk upload finished"
+msgstr "Carga masiva finalizada"
+
+#: ckanext/bulkupload/templates/package/snippets/bulk_sucess.html:3
+msgid ""
+"Notice: Reloading this page will send the same request again and repeat "
+"the bulk upload"
+msgstr ""
+"Aviso: al recargar esta página se enviará la misma solicitud nuevamente y se repetirá "
+"la carga masiva"
+
