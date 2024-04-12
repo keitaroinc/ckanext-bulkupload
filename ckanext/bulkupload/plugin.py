@@ -2,12 +2,14 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.bulkupload.views import bulkupload
 import ckanext.bulkupload.actions as actions
+import ckanext.bulkupload.auth as auth
 
 
 class BulkuploadPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IAuthFunctions)
     
     # IConfigurer
 
@@ -23,6 +25,13 @@ class BulkuploadPlugin(plugins.SingletonPlugin):
         return {
             "call_add_resouce_api": actions.call_add_resouce_api,
             
+        }
+
+    # IAuthFunctions
+
+    def get_auth_functions(self):
+        return {
+            "bulk_resource_upload": auth.bulk_resource_upload,
         }
     
     # IBlueprint

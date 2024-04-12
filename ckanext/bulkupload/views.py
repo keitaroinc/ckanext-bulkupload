@@ -32,7 +32,13 @@ def bulk_resource_upload(pkg_name):
             "model": model,
             "session": model.Session,
             "user": g.user,
+            "auth_user_obj": g.userobj,
         }
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+        
         pkg_name_dict = {
             'id': pkg_name,
             }
@@ -49,7 +55,13 @@ def bulk_resource_upload(pkg_name):
             "model": model,
             "session": model.Session,
             "user": g.user,
+            "auth_user_obj": g.userobj,
         }
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+        
         pkg_name_dict = {
             'id': pkg_name,
             }
