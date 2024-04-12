@@ -1,15 +1,17 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckanext.bulkupload.views import bulkupload
 import ckanext.bulkupload.actions as actions
 import ckanext.bulkupload.auth as auth
+from ckanext.bulkupload.views import bulkupload
+from ckan.lib.plugins import DefaultTranslation
 
 
-class BulkuploadPlugin(plugins.SingletonPlugin):
+class BulkuploadPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IActions)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.ITranslation)
     
     # IConfigurer
 
