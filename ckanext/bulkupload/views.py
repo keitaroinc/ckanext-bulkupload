@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask import request
 from ckan.common import config
 import ckan.model as model
 import ckan.logic as logic
@@ -69,12 +68,20 @@ def bulk_resource_upload(pkg_name):
         form_data = clean_dict(
             dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
         )
-        print(form_data['author'])
         pkg_name_dict = {
             'id': pkg_name,
             }
         pkg_dict = get.package_show(context, pkg_name_dict)
         uploaded_files = flask.request.files.getlist("file[]")
+
+        # For newly created datasets
+        if pkg_dict['state'] != 'active':
+            patch_package_data = {
+                'id': pkg_name,
+                'state': 'active',
+            }
+            tk.get_action("package_patch")(context, patch_package_data)
+
         for f in uploaded_files:
 
             data_dict = {
