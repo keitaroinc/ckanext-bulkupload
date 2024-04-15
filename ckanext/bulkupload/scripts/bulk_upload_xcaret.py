@@ -3,7 +3,34 @@ import requests
 import ssl
 from os import walk
 from datetime import datetime
-from variables import *
+import configparser
+
+
+config = configparser.ConfigParser()
+config.read("config.ini")
+FOLDER_PATH = config.get("configvars", "FOLDER_PATH")
+API_TOKEN = config.get("configvars", "API_TOKEN")
+DATASET_NAME = config.get("configvars", "DATASET_NAME")
+DESCRIPTION = config.get("configvars", "DESCRIPTION")
+SUBJECT = config.get("configvars", "SUBJECT")
+CREATOR = config.get("configvars", "CREATOR")
+PUBLISHER = config.get("configvars", "PUBLISHER")
+CONTRIBUTOR = config.get("configvars", "CONTRIBUTOR")
+DATE = config.get("configvars", "DATE")
+TYPE = config.get("configvars", "TYPE")
+IDENTIFIER = config.get("configvars", "IDENTIFIER")
+SOURCE = config.get("configvars", "SOURCE")
+LANGUAGE = config.get("configvars", "LANGUAGE")
+RELATION = config.get("configvars", "RELATION")
+COVERAGE = config.get("configvars", "COVERAGE")
+RIGHTS = config.get("configvars", "RIGHTS")
+MEDIUM = config.get("configvars", "MEDIUM")
+SOURCE_OF_ACQUISITION = config.get("configvars", "SOURCE_OF_ACQUISITION")
+ORGANIZATIONAL_DESCRIPTION = config.get("configvars", "ORGANIZATIONAL_DESCRIPTION")
+PHYSICAL_TECHNICAL = config.get("configvars", "PHYSICAL_TECHNICAL")
+LOCATION = config.get("configvars", "LOCATION")
+RULES = config.get("configvars", "RULES")
+
 
 now = datetime.now()
 now_date = str(now.date())
