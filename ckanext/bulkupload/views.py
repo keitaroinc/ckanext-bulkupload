@@ -1,5 +1,4 @@
 from flask import Blueprint
-from flask import request
 from ckan.common import config
 import ckan.model as model
 import ckan.logic as logic
@@ -11,12 +10,16 @@ from pathlib import Path
 
 from ckan.common import g
 from ckan.logic.action import get
+import ckan.lib.navl.dictization_functions as dict_fns
 import flask
 
 
 log = logging.getLogger(__name__)
 
 get_action = logic.get_action
+parse_params = logic.parse_params
+clean_dict = logic.clean_dict
+tuplize_dict = logic.tuplize_dict
 bulkupload = Blueprint("bulkupload", __name__)
 try:
     storage_path = config.get('ckan.storage_path')
@@ -62,11 +65,23 @@ def bulk_resource_upload(pkg_name):
         except:
             return tk.abort(403)
         
+        form_data = clean_dict(
+            dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
+        )
         pkg_name_dict = {
             'id': pkg_name,
             }
         pkg_dict = get.package_show(context, pkg_name_dict)
         uploaded_files = flask.request.files.getlist("file[]")
+
+        # For newly created datasets
+        if pkg_dict['state'] != 'active':
+            patch_package_data = {
+                'id': pkg_name,
+                'state': 'active',
+            }
+            tk.get_action("package_patch")(context, patch_package_data)
+
         for f in uploaded_files:
 
             data_dict = {
@@ -74,6 +89,25 @@ def bulk_resource_upload(pkg_name):
                 'name': f.filename,
                 'url': f.filename,
                 'url_type': 'upload',
+                'subject': form_data['subject'],
+                'description': form_data['description'],
+                'author': form_data['author'],
+                'publisher': form_data['publisher'],
+                'contributor': form_data['contributor'],
+                'date': form_data['date'],
+                'type': form_data['type'],
+                'identifier': form_data['identifier'],
+                'source': form_data['source'],
+                'language': form_data['language'],
+                'relation': form_data['relation'],
+                'coverage': form_data['coverage'],
+                'rights': form_data['rights'],
+                'medium': form_data['medium'],
+                'source_of_acquisition': form_data['source_of_acquisition'],
+                'organization_description': form_data['organization_description'],
+                'physical_technical': form_data['physical_technical'],
+                'location': form_data['location'],
+                'rules': form_data['rules'],
             }
 
             x = tk.get_action("resource_create")(context, data_dict)

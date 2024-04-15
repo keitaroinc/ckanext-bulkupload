@@ -4,9 +4,6 @@
 {% block subtitle %}{{ _('Add resource') }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }}{% endblock %}
 {% block form_title %}{{ _('Add resource') }}{% endblock %}
 
-
-
-
 {% block content_primary_nav %}
   <li class="">{% link_for _('New resource'), named_route=pkg_dict.type ~ '_resource.new', id=pkg_dict.name, icon='fa fa-pencil-square-o' %}</li>
   <li class="active">{% link_for _('Bulk Upload'), named_route='bulkupload.bulk_resource_upload', pkg_dict=pkg_dict, pkg_name=pkg_name,  icon='plus-square' %}</li>
@@ -20,7 +17,25 @@
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
 
     <input syle="margin-bottom:20px;" class ='btn btn-default' type="file" name="file[]" multiple> 
-    {{ form.textarea('desc', id='field-description', label=_('Description'),  value='') }}
+    {{ form.input('subject', id='field-subject', label=_('Subject'), value="", error="") }}
+    {{ form.markdown('description', id='field-description', label=_('Description'),  value='', error="" ) }}
+    {{ form.input('author', id='field-author', label=_('Creator'), value='', error='') }}
+    {{ form.input('publisher', id='field-publisher', label=_('Publisher'), value='', error='') }}
+    {{ form.input('contributor', id='field-contributor',  label=_('Contributor'), value='', error='') }}
+    {{ form.input('date', type='date', id='field-date',  label=_('Date'), value='', error='') }}
+    {{ form.input('type', id='field-type', label=_('Type'), value='', error='') }}
+    {{ form.input('identifier', id='field-identifier', label=_('Identifier'), value='', error='') }}
+    {{ form.input('source', id='field-source', label=_('Source'), value='', error='') }}
+    {{ form.input('language', id='field-language', label=_('Language'), value='', error='') }}
+    {{ form.markdown('relation', id='field-relation', label=_('Relation'), value='', error='') }}
+    {{ form.input('coverage', id='field-coverage', label=_('Coverage'), value='', error='') }}
+    {{ form.input('rights', id='field-rights', label=_('Rights'), value='', error='') }}
+    {{ form.input('medium', id='field-medium', label=_('Medium'), value='', error='') }}
+    {{ form.input('source_of_acquisition', id='source_of_acquisition-medium', label=_('Source of acquisition'), value='', error='') }}
+    {{ form.input('organization_description', id='field-organization_description', label=_("Organization/Description"), value='', error='') }}
+    {{ form.markdown('physical_technical', id='field-physical_technical', label=_('Physical characteristics and technical requirements'), value='', error='') }}
+    {{ form.input('location', id='field-location', label=_('Existence and location of originals'), value='', error='') }}
+    {{ form.markdown('rules', id='field-rules', label=_('Rules or Conventions'), value='', error='') }}
 
     <div style="display:flex; gap:10px">
       <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Upload')}}</button>
