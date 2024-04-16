@@ -17,17 +17,17 @@
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
 
     <input syle="margin-bottom:20px;" class ='btn btn-default' type="file" name="file[]" multiple> 
-    {{ form.input('subject', id='field-subject', label=_('Subject'), value="", error="") }}
-    {{ form.markdown('description', id='field-description', label=_('Description'),  value='', error="" ) }}
-    {{ form.input('author', id='field-author', label=_('Creator'), value='', error='') }}
-    {{ form.input('publisher', id='field-publisher', label=_('Publisher'), value='', error='') }}
-    {{ form.input('contributor', id='field-contributor',  label=_('Contributor'), value='', error='') }}
+    {{ form.input('subject', id='field-subject', label=_('Subject'), value="", error="", placeholder='eg. Water') }}
+    {{ form.markdown('description', id='field-description', label=_('Description'),  value='', error="", placeholder='Some useful notes about the data' ) }}
+    {{ form.input('author', id='field-author', label=_('Creator'), value='', error='', placeholder='Joe Bloggs') }}
+    {{ form.input('publisher', id='field-publisher', label=_('Publisher'), value='', error='', placeholder='Joe Bloggs') }}
+    {{ form.input('contributor', id='field-contributor',  label=_('Contributor'), value='', error='', placeholder='Joe Bloggs') }}
     {{ form.input('date', type='date', id='field-date',  label=_('Date'), value='', error='') }}
-    {{ form.input('type', id='field-type', label=_('Type'), value='', error='') }}
-    {{ form.input('identifier', id='field-identifier', label=_('Identifier'), value='', error='') }}
-    {{ form.input('source', id='field-source', label=_('Source'), value='', error='') }}
-    {{ form.input('language', id='field-language', label=_('Language'), value='', error='') }}
-    {{ form.markdown('relation', id='field-relation', label=_('Relation'), value='', error='') }}
+    {{ form.input('type', id='field-type', label=_('Type'), value='', error='', placeholder='eg. Resource') }}
+    {{ form.input('identifier', id='field-identifier', label=_('Identifier'), value='', error='', placeholder='eg. 12345') }}
+    {{ form.input('source', id='field-source', label=_('Source'), value='', error='', placeholder='eg. Resource 1234') }}
+    {{ form.input('language', id='field-language', label=_('Language'), value='', error='', placeholder='eg. Spanish') }}
+    {{ form.markdown('relation', id='field-relation', label=_('Relation'), value='', error='', placeholder='More information about related resource') }}
     {{ form.input('coverage', id='field-coverage', label=_('Coverage'), value='', error='') }}
     {{ form.input('rights', id='field-rights', label=_('Rights'), value='', error='') }}
     {{ form.input('medium', id='field-medium', label=_('Medium'), value='', error='') }}
