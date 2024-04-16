@@ -108,6 +108,7 @@ def bulk_resource_upload(pkg_name):
                 'physical_technical': form_data['physical_technical'],
                 'location': form_data['location'],
                 'rules': form_data['rules'],
+                'date_of_descriptions': form_data['date_of_descriptions'],
             }
 
             x = tk.get_action("resource_create")(context, data_dict)

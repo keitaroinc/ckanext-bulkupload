@@ -55,6 +55,8 @@
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Location of the original documents') }}</small></div>
     {{ form.markdown('rules', id='field-rules', label=_('Rules or Conventions'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Protocols on which the description is based') }}</small></div>
+    {{ form.input('date_of_descriptions', type='date', id='field-date_of_descriptions',  label=_('Date'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Dates of creation and revision') }}</small></div>
 
     <div style="display:flex; gap:10px">
       <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Upload')}}</button>

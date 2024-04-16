@@ -212,6 +212,12 @@
             "label": "Rules or Conventions​",
             "help_text": "Protocols on which the description is based",
             "form_snippet": "markdown.html"
+        },
+        {
+            "field_name": "date_of_descriptions",
+            "label": "Date(s) of descriptions",
+            "help_text": "Dates of creation and revision",
+            "form_snippet": "date.html"
         }
     ]
 }
