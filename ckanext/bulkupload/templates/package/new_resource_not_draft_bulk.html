@@ -16,26 +16,47 @@
 {% block form %}
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
 
-    <input syle="margin-bottom:20px;" class ='btn btn-default' type="file" name="file[]" multiple> 
-    {{ form.input('subject', id='field-subject', label=_('Subject'), value="", error="") }}
-    {{ form.markdown('description', id='field-description', label=_('Description'),  value='', error="" ) }}
-    {{ form.input('author', id='field-author', label=_('Creator'), value='', error='') }}
-    {{ form.input('publisher', id='field-publisher', label=_('Publisher'), value='', error='') }}
-    {{ form.input('contributor', id='field-contributor',  label=_('Contributor'), value='', error='') }}
+    <div style="margin-bottom: 20px;"><input class ='btn btn-default' type="file" name="file[]" multiple></div>
+    {{ form.input('subject', id='field-subject', label=_('Subject'), value="", error="", placeholder='eg. Water') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The topic of the resource') }}</small></div>
+    {{ form.markdown('description', id='field-description', label=_('Description'),  value='', error="", placeholder='Some useful notes about the data' ) }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('An account of the resource') }}</small></div>
+    {{ form.input('author', id='field-author', label=_('Creator'), value='', error='', placeholder='Joe Bloggs') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('An entity primarily responsible for making the resource') }}</small></div>
+    {{ form.input('publisher', id='field-publisher', label=_('Publisher'), value='', error='', placeholder='Joe Bloggs') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('An entity responsible for making the resource available') }}</small></div>
+    {{ form.input('contributor', id='field-contributor',  label=_('Contributor'), value='', error='', placeholder='Joe Bloggs') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('An entity responsible for making contributions to the resource') }}</small></div>
     {{ form.input('date', type='date', id='field-date',  label=_('Date'), value='', error='') }}
-    {{ form.input('type', id='field-type', label=_('Type'), value='', error='') }}
-    {{ form.input('identifier', id='field-identifier', label=_('Identifier'), value='', error='') }}
-    {{ form.input('source', id='field-source', label=_('Source'), value='', error='') }}
-    {{ form.input('language', id='field-language', label=_('Language'), value='', error='') }}
-    {{ form.markdown('relation', id='field-relation', label=_('Relation'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('A point or period of time associated with an event in the lifecycle of the resource') }}</small></div>
+    {{ form.input('type', id='field-type', label=_('Type'), value='', error='', placeholder='eg. Resource') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The nature or genre of the resource') }}</small></div>
+    {{ form.input('identifier', id='field-identifier', label=_('Identifier'), value='', error='', placeholder='eg. 12345') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('An unambiguous reference to the resource within a given context') }}</small></div>
+    {{ form.input('source', id='field-source', label=_('Source'), value='', error='', placeholder='eg. Resource 1234') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('A related resource from which the described resource is derived') }}</small></div>
+    {{ form.input('language', id='field-language', label=_('Language'), value='', error='', placeholder='eg. Spanish') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('A language of the resource') }}</small></div>
+    {{ form.markdown('relation', id='field-relation', label=_('Relation'), value='', error='', placeholder='More information about related resource') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('More information about related resource') }}</small></div>
     {{ form.input('coverage', id='field-coverage', label=_('Coverage'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant') }}</small></div>
     {{ form.input('rights', id='field-rights', label=_('Rights'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Information about rights held in and over the resource') }}</small></div>
     {{ form.input('medium', id='field-medium', label=_('Medium'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Medium of the unit of description') }}</small></div>
     {{ form.input('source_of_acquisition', id='source_of_acquisition-medium', label=_('Source of acquisition'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Source of acquisition of the material') }}</small></div>
     {{ form.input('organization_description', id='field-organization_description', label=_("Organization/Description"), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('How the documents are organized (alphabetically or in order of arrival)') }}</small></div>
     {{ form.markdown('physical_technical', id='field-physical_technical', label=_('Physical characteristics and technical requirements'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Relevant physical conditions, software and hardware requirements for the access and preservation of the unit of description') }}</small></div>
     {{ form.input('location', id='field-location', label=_('Existence and location of originals'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Location of the original documents') }}</small></div>
     {{ form.markdown('rules', id='field-rules', label=_('Rules or Conventions'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Protocols on which the description is based') }}</small></div>
+    {{ form.input('date_of_descriptions', type='date', id='field-date_of_descriptions',  label=_('Date'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Dates of creation and revision') }}</small></div>
 
     <div style="display:flex; gap:10px">
       <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Upload')}}</button>
