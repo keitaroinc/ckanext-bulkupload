@@ -2,12 +2,13 @@
 import requests
 import ssl
 from os import walk
+import os
 import configparser
 
 ssl.match_hostname = lambda cert, hostname: True
 
 imported_vars = configparser.RawConfigParser()
-imported_vars.read('/home/blagoja/Projects/CKAN/2.9-test/scripts/config.ini')
+imported_vars.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
 folder_path = imported_vars.get('my_vars', "FOLDER_PATH")
 api_token = imported_vars.get('my_vars', "API_TOKEN")
