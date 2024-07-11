@@ -5,7 +5,7 @@
 {% block form %}
 <p> </p>
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
-    {{ form.input('name', id='field-dataset-name', label=_('Dataset Name'), value="", error="", placeholder='eg. TransX data') }}
+    {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='eg. TransX data') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  
     {{ form.input('date-start', type='date', id='field-date-start',  label=_('Date start'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>

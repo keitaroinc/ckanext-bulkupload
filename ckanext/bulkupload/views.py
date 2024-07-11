@@ -157,11 +157,13 @@ def busoperator():
         form_data = clean_dict(
             dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
         )
-        
+        name_validated = form_data['title'].replace(' ', '-').lower()
+
         data_dict = {
-            'name': form_data['name'],
-            'title': form_data['name'],
+            'name': name_validated,
+            'title': form_data['title'],
             'private': False,
+            'status': 'active',
         }
         
         x = tk.get_action("package_create")(context, data_dict)
