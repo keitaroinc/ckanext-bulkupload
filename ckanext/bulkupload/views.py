@@ -124,7 +124,54 @@ def bulk_resource_upload(pkg_name):
         return base.render(
             'package/activity_bulk.html', extra_vars
         )
+    
 
+def busoperator():
+    
+    if flask.request.method == 'GET':
+        context = {
+            "model": model,
+            "session": model.Session,
+            "user": g.user,
+            "auth_user_obj": g.userobj,
+        }
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+
+        return base.render('test.html')
+    
+    elif flask.request.method == 'POST':
+        context = {
+            "model": model,
+            "session": model.Session,
+            "user": g.user,
+            "auth_user_obj": g.userobj,
+        }
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+        
+        form_data = clean_dict(
+            dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
+        )
+        
+        data_dict = {
+            'name': form_data['name'],
+            'title': form_data['name'],
+            'private': False,
+        }
+        
+        x = tk.get_action("package_create")(context, data_dict)
+        
+        return base.render('test.html')
+
+
+bulkupload.add_url_rule("/dataset/busoperator",
+                        view_func=busoperator,
+                        methods=("GET", "POST"))
 
 bulkupload.add_url_rule("/dataset/<pkg_name>/resource/new/bulkupload",
                         view_func=bulk_resource_upload,

@@ -1,0 +1,38 @@
+{% extends "page.html" %}
+{% import 'macros/form.html' as form %}
+
+{% block primary_content %}
+{% block form %}
+<p> </p>
+<form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
+    {{ form.input('name', id='field-dataset-name', label=_('Dataset Name'), value="", error="", placeholder='eg. TransX data') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  
+    {{ form.input('date-start', type='date', id='field-date-start',  label=_('Date start'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>
+    {{ form.input('date-end', type='date', id='field-date-end',  label=_('Date end'), value='', error='') }}
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>  
+    
+    <div style="display:flex; gap:10px">
+      <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Create Dataset')}}</button>
+    </div>
+  </form>
+{% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+  {% block info_module %}
+    <section class="module module-narrow module-shallow">
+      <h2 class="module-heading"><i class="fa fa-info-circle"></i> {{ _('What are datasets?') }}</h2>
+      <div class="module-content">
+        <p>
+          {% trans %}
+          A CKAN Dataset is a collection of data resources (such as files),
+          together with a description and other information, at a fixed URL.
+          Datasets are what users see when searching for data.
+          {% endtrans %}
+        </p>
+      </div>
+    </section>
+  {% endblock %}
+{% endblock %}
+
