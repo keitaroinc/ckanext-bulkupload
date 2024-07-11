@@ -10,6 +10,7 @@ from pathlib import Path
 
 from ckan.common import g
 from ckan.logic.action import get
+import ckan.lib.helpers as h
 import ckan.lib.navl.dictization_functions as dict_fns
 import flask
 
@@ -165,10 +166,11 @@ def busoperator():
             'private': False,
             'status': 'active',
         }
-        
-        x = tk.get_action("package_create")(context, data_dict)
-        
-        return base.render('test.html')
+        try:
+            x = tk.get_action("package_create")(context, data_dict)
+        except:
+            pass
+        return h.redirect_to(u'/dashboard')
 
 
 bulkupload.add_url_rule("/dataset/busoperator",
