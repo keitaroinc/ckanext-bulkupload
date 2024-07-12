@@ -27,7 +27,68 @@ try:
 except:
     log.critical('''Please specify a ckan.storage_path in your config
                          for your uploads''')
+    
 
+def busoperator():
+    
+    if flask.request.method == 'GET':
+        context = {
+            "model": model,
+            "session": model.Session,
+            "user": g.user,
+            "auth_user_obj": g.userobj,
+        }
+
+        user_dict = {
+            'id': g.user,
+            'permission':'create_dataset',
+        }
+
+        org_list = tk.get_action("organization_list_for_user")(context, user_dict)
+
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+        
+        extra_var = {
+           'org_list': org_list,
+        }
+
+        return base.render('test.html', extra_var)
+    
+    elif flask.request.method == 'POST':
+        context = {
+            "model": model,
+            "session": model.Session,
+            "user": g.user,
+            "auth_user_obj": g.userobj,
+        }
+        try:
+            tk.check_access("bulk_resource_upload", context)
+        except:
+            return tk.abort(403)
+        
+        form_data = clean_dict(
+            dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
+        )
+        name_validated = form_data['title'].replace(' ', '-').lower()
+
+        data_dict = {
+            'name': name_validated,
+            'title': form_data['title'],
+            'private': False,
+            'status': 'active',
+            'owner_org': form_data['owner_org'],
+        }
+        try:
+            x = tk.get_action("package_create")(context, data_dict)
+            pckg_title = x['title']
+
+        except:
+            pass
+   
+        return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
 
 def bulk_resource_upload(pkg_name):
 
@@ -105,54 +166,6 @@ def bulk_resource_upload(pkg_name):
         return base.render(
             'package/activity_bulk.html', extra_vars
         )
-    
-
-def busoperator():
-    
-    if flask.request.method == 'GET':
-        context = {
-            "model": model,
-            "session": model.Session,
-            "user": g.user,
-            "auth_user_obj": g.userobj,
-        }
-        try:
-            tk.check_access("bulk_resource_upload", context)
-        except:
-            return tk.abort(403)
-
-        return base.render('test.html')
-    
-    elif flask.request.method == 'POST':
-        context = {
-            "model": model,
-            "session": model.Session,
-            "user": g.user,
-            "auth_user_obj": g.userobj,
-        }
-        try:
-            tk.check_access("bulk_resource_upload", context)
-        except:
-            return tk.abort(403)
-        
-        form_data = clean_dict(
-            dict_fns.unflatten(tuplize_dict(parse_params(tk.request.form)))
-        )
-        name_validated = form_data['title'].replace(' ', '-').lower()
-
-        data_dict = {
-            'name': name_validated,
-            'title': form_data['title'],
-            'private': False,
-            'status': 'active',
-        }
-        try:
-            x = tk.get_action("package_create")(context, data_dict)
-            pckg_title = x['title']
-
-        except:
-            pass
-        return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
 
 
 bulkupload.add_url_rule("/dataset/busoperator",

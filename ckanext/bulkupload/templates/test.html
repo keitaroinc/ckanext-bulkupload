@@ -12,6 +12,22 @@
     {{ form.input('date-end', type='date', id='field-date-end',  label=_('Date end'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>  
     
+
+    <div class="form-group control-medium">
+      <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
+      <div class="controls">
+        <select id="field-organizations" name="owner_org" data-module="autocomplete">
+
+          {% for organization in org_list %}
+          {# get out first org from users list only if there is not an existing org #}
+          <option value="{{ organization.id }}" {% if selected_org %} selected="selected" {% endif %}>{{ organization.display_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+
+
     <div style="display:flex; gap:10px">
       <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Create Dataset')}}</button>
     </div>
