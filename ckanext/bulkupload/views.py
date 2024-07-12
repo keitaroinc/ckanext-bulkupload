@@ -90,26 +90,6 @@ def bulk_resource_upload(pkg_name):
                 'name': f.filename,
                 'url': f.filename,
                 'url_type': 'upload',
-                'subject': form_data['subject'],
-                'description': form_data['description'],
-                'author': form_data['author'],
-                'publisher': form_data['publisher'],
-                'contributor': form_data['contributor'],
-                'date': form_data['date'],
-                'type': form_data['type'],
-                'identifier': form_data['identifier'],
-                'source': form_data['source'],
-                'language': form_data['language'],
-                'relation': form_data['relation'],
-                'coverage': form_data['coverage'],
-                'rights': form_data['rights'],
-                'medium': form_data['medium'],
-                'source_of_acquisition': form_data['source_of_acquisition'],
-                'organization_description': form_data['organization_description'],
-                'physical_technical': form_data['physical_technical'],
-                'location': form_data['location'],
-                'rules': form_data['rules'],
-                'date_of_descriptions': form_data['date_of_descriptions'],
             }
 
             x = tk.get_action("resource_create")(context, data_dict)
@@ -168,9 +148,11 @@ def busoperator():
         }
         try:
             x = tk.get_action("package_create")(context, data_dict)
+            pckg_title = x['title']
+
         except:
             pass
-        return h.redirect_to(u'/dashboard')
+        return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
 
 
 bulkupload.add_url_rule("/dataset/busoperator",
