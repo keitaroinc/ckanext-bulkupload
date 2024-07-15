@@ -168,7 +168,7 @@ def bulk_resource_upload(pkg_name):
         )
 
 
-bulkupload.add_url_rule("/dataset/busoperator",
+bulkupload.add_url_rule("/dataset/new/busoperator",
                         view_func=busoperator,
                         methods=("GET", "POST"))
 
