@@ -29,7 +29,7 @@ except:
                          for your uploads''')
     
 
-def busoperator():
+def package_busoperator():
     
     if flask.request.method == 'GET':
         context = {
@@ -47,7 +47,7 @@ def busoperator():
         org_list = tk.get_action("organization_list_for_user")(context, user_dict)
 
         try:
-            tk.check_access("bulk_resource_upload", context)
+            tk.check_access("package_busoperator", context)
         except:
             return tk.abort(403)
         
@@ -65,7 +65,7 @@ def busoperator():
             "auth_user_obj": g.userobj,
         }
         try:
-            tk.check_access("bulk_resource_upload", context)
+            tk.check_access("package_busoperator", context)
         except:
             return tk.abort(403)
         
@@ -169,7 +169,7 @@ def bulk_resource_upload(pkg_name):
 
 
 bulkupload.add_url_rule("/dataset/new/busoperator",
-                        view_func=busoperator,
+                        view_func=package_busoperator,
                         methods=("GET", "POST"))
 
 bulkupload.add_url_rule("/dataset/<pkg_name>/resource/new/bulkupload",

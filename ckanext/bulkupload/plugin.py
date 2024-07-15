@@ -23,6 +23,7 @@ class BulkuploadPlugin(plugins.SingletonPlugin, DefaultTranslation):
     def get_auth_functions(self):
         return {
             "bulk_resource_upload": auth.bulk_resource_upload,
+            "package_busoperator": auth.package_busoperator,
         }
     
     # IBlueprint
