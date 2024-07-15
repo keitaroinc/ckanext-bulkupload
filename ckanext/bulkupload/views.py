@@ -110,7 +110,7 @@ def bulk_resource_upload(pkg_name):
         pkg_dict = get.package_show(context, pkg_name_dict)
         
         return base.render(
-            'package/new_resource_not_draft_bulk.html', {
+            'package/resource_busoperator.html', {
                 'pkg_name': pkg_name,
                 'pkg_dict': pkg_dict,
             }

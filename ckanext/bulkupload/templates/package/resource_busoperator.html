@@ -1,0 +1,40 @@
+{% extends "page.html" %}
+{% import 'macros/form.html' as form %}
+
+{% block primary_content %}
+<p> </p>
+<label>Dataset Name</label></br>
+{{ pkg_dict.title }}</br>
+<label>Dataset Start</label></br>
+{{ pkg_dict.title }}</br>
+<label>Dataset End</label></br>
+{{ pkg_dict.title }}</br>
+
+  {% block form %}
+  <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
+
+      <div style="margin-bottom: 20px;"><input class ='btn btn-default' type="file" name="file[]" multiple></div>
+      <div style="display:flex; gap:10px">
+        <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Upload')}}</button>
+      </div>
+    </form>
+  {% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+  {% block info_module %}
+    <section class="module module-narrow module-shallow">
+      <h2 class="module-heading"><i class="fa fa-info-circle"></i> {{ _('What are datasets?') }}</h2>
+      <div class="module-content">
+        <p>
+          {% trans %}
+          A CKAN Dataset is a collection of data resources (such as files),
+          together with a description and other information, at a fixed URL.
+          Datasets are what users see when searching for data.
+          {% endtrans %}
+        </p>
+      </div>
+    </section>
+  {% endblock %}
+{% endblock %}
+
