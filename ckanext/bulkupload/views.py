@@ -55,7 +55,7 @@ def busoperator():
            'org_list': org_list,
         }
 
-        return base.render('test.html', extra_var)
+        return base.render('package_busoperator.html', extra_var)
     
     elif flask.request.method == 'POST':
         context = {
