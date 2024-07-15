@@ -83,7 +83,7 @@ def busoperator():
         }
         try:
             x = tk.get_action("package_create")(context, data_dict)
-            pckg_title = x['title']
+            pckg_title = x['name']
 
         except:
             pass
