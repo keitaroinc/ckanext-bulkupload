@@ -3,17 +3,19 @@
 
 {% block primary_content %}
 <p> </p>
-<label>Dataset Name</label></br>
-{{ pkg_dict.title }}</br>
-<label>Dataset Start</label></br>
-{{ pkg_dict.title }}</br>
-<label>Dataset End</label></br>
-{{ pkg_dict.title }}</br>
-
   {% block form %}
   <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
+    {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value=pkg_dict.title, error="", placeholder='eg. TransX data') }}
+      <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  
+      {{ form.input('date-start', type='date', id='field-date-start',  label=_('Date start'), value=pkg_dict.dataset_start_date, error='') }}
+      <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>
+      {{ form.input('date-end', type='date', id='field-date-end',  label=_('Date end'), value=pkg_dict.dataset_end_date, error='') }}
+      <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date end') }}</small></div> 
+      {{ form.input('organization', id='field-organization',  label=_('Organization'), value=pkg_dict.organization.title, error='') }}
+      <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Organiation') }}</small></div> 
+      
 
-      <div style="margin-bottom: 20px;"><input class ='btn btn-default' type="file" name="file[]" multiple></div>
+      <div style="margin-bottom: 20px;"><input class ='btn btn-default' type="file" name="file[]"></div>
       <div style="display:flex; gap:10px">
         <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Upload')}}</button>
       </div>
@@ -32,6 +34,7 @@
           together with a description and other information, at a fixed URL.
           Datasets are what users see when searching for data.
           {% endtrans %}
+          {{pkg_dict.organization.title}}
         </p>
       </div>
     </section>
