@@ -47,7 +47,7 @@ def package_busoperator():
         org_list = tk.get_action("organization_list_for_user")(context, user_dict)
 
         try:
-            tk.check_access("package_busoperator", context)
+            tk.check_access('package_create', context)
         except:
             return tk.abort(403)
         
@@ -65,7 +65,7 @@ def package_busoperator():
             "auth_user_obj": g.userobj,
         }
         try:
-            tk.check_access("package_busoperator", context)
+            tk.check_access('package_create', context)
         except:
             return tk.abort(403)
         
@@ -102,7 +102,7 @@ def bulk_resource_upload(pkg_name):
             "auth_user_obj": g.userobj,
         }
         try:
-            tk.check_access("bulk_resource_upload", context)
+            tk.check_access('package_create', context)
         except:
             return tk.abort(403)
         
@@ -125,7 +125,7 @@ def bulk_resource_upload(pkg_name):
             "auth_user_obj": g.userobj,
         }
         try:
-            tk.check_access("bulk_resource_upload", context)
+            tk.check_access('package_create', context)
         except:
             return tk.abort(403)
         
