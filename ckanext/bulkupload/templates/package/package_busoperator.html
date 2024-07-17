@@ -3,7 +3,10 @@
 
 {% block primary_content %}
 {% block form %}
-<p> </p>
+<p></p>
+{% if dataset_exists == True %}
+  <p class="text-danger">That dataset name allready exists</p>
+{% endif %}
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
     {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='eg. TransX data') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  

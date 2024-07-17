@@ -86,11 +86,14 @@ def package_busoperator():
         try:
             x = tk.get_action("package_create")(context, data_dict)
             pckg_title = x['name']
-
+            return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
+        
         except:
-            pass
-   
-        return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
+            dataset_exists = '1111'
+            return h.redirect_to("/dataset/new/busoperator",
+                                 dataset_exists=dataset_exists)
+
+            
 
 def bulk_resource_upload(pkg_name):
 
