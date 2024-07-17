@@ -13,6 +13,7 @@ from ckan.logic.action import get
 import ckan.lib.helpers as h
 import ckan.lib.navl.dictization_functions as dict_fns
 import flask
+from flask import redirect
 
 
 log = logging.getLogger(__name__)
@@ -29,7 +30,7 @@ except:
                          for your uploads''')
     
 
-def package_busoperator():
+def package_busoperator(errors=None):
     
     if flask.request.method == 'GET':
         context = {
@@ -53,6 +54,7 @@ def package_busoperator():
         
         extra_var = {
            'org_list': org_list,
+           'errors': errors,
         }
 
         return base.render('package/package_busoperator.html', extra_var)
@@ -89,9 +91,9 @@ def package_busoperator():
             return h.redirect_to(f'/dataset/{pckg_title}/resource/new/bulkupload')
         
         except:
-            dataset_exists = '1111'
-            return h.redirect_to("/dataset/new/busoperator",
-                                 dataset_exists=dataset_exists)
+            # To Do: Find better way (CKAN way) to handle errors
+            errors = 'Dataset name exists'
+            return redirect(h.url_for('bulkupload.package_busoperator', errors=errors))
 
             
 

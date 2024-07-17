@@ -3,8 +3,9 @@
 
 {% block primary_content %}
 {% block form %}
-<p></p>
-{% if dataset_exists == True %}
+
+{#{{ request.args.get('errors') }}#}
+{% if request.args.get('errors') %}
   <p class="text-danger">That dataset name allready exists</p>
 {% endif %}
 <form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
