@@ -6,6 +6,7 @@ import ckan.plugins.toolkit as tk
 import ckan.lib.base as base
 import logging
 import os
+import re
 from pathlib import Path
 import boto3
 from botocore.exceptions import ClientError
@@ -170,10 +171,11 @@ def bulk_resource_upload(pkg_name):
         #The for loop stays for future multi files upload posibility
         for f in uploaded_files:
 
+            url_striped = re.sub(r"[)()]+", "", f.filename)
             data_dict = {
                 'package_id': pkg_name,
                 'name': f.filename,
-                'url': f.filename,
+                'url': url_striped,
                 'url_type': 'upload',
             }
 
@@ -182,7 +184,7 @@ def bulk_resource_upload(pkg_name):
             file_name = os.path.join(storage_path, unique_filename)
             f.save(file_name)
 
-            object_name = '/resources/' + x['id'] + '/' + f.filename
+            object_name = '/resources/' + x['id'] + '/' + url_striped
 
             try:
                 response = s3_client.upload_file(file_name, bucket, object_name)
