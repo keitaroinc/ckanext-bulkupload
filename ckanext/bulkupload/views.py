@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 import boto3
 from botocore.exceptions import ClientError
-import ckan.lib.munge as munge
+import uuid
 
 from ckan.common import g
 from ckan.logic.action import get
@@ -178,7 +178,8 @@ def bulk_resource_upload(pkg_name):
             }
 
             x = tk.get_action("resource_create")(context, data_dict)
-            file_name = os.path.join(storage_path, f.filename)
+            unique_filename = str(uuid.uuid4())[:8] + str(f.filename)
+            file_name = os.path.join(storage_path, unique_filename)
             f.save(file_name)
 
             object_name = '/resources/' + x['id'] + '/' + f.filename
