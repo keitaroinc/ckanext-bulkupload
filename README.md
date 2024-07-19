@@ -2,8 +2,8 @@
 
 # ckanext-bulkupload
 
-CKAN extension for bulk upload of resources.
-The extension is customazed for Xcaret Open data portal.
+CKAN extension for custom form Dataset creation.
+The extension is customazed for Vix data portal.
 
 
 ## Requirements
