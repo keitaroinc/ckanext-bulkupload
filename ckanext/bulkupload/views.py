@@ -7,6 +7,9 @@ import ckan.lib.base as base
 import logging
 import os
 from pathlib import Path
+import boto3
+from botocore.exceptions import ClientError
+import ckan.lib.munge as munge
 
 from ckan.common import g
 from ckan.logic.action import get
@@ -29,6 +32,17 @@ except:
     log.critical('''Please specify a ckan.storage_path in your config
                          for your uploads''')
     
+aws_access_key_id = config.get('ckanext.s3filestore.aws_access_key_id')
+aws_secret_access_key = config.get('ckanext.s3filestore.aws_secret_access_key')
+bucket = config.get('ckanext.s3filestore.aws_bucket_name')
+session = boto3.session.Session()
+s3_client = session.client(
+    service_name='s3',
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+    endpoint_url=config.get('ckanext.s3filestore.host_name', None)
+)
+
 
 def package_busoperator(errors=None):
     
@@ -95,7 +109,7 @@ def package_busoperator(errors=None):
             errors = 'Dataset name exists'
             return redirect(h.url_for('bulkupload.package_busoperator', errors=errors))
 
-            
+
 
 def bulk_resource_upload(pkg_name):
 
@@ -151,6 +165,7 @@ def bulk_resource_upload(pkg_name):
             }
             tk.get_action("package_patch")(context, patch_package_data)
 
+        #The for loop stays for future multi files upload posibility
         for f in uploaded_files:
 
             data_dict = {
@@ -161,11 +176,18 @@ def bulk_resource_upload(pkg_name):
             }
 
             x = tk.get_action("resource_create")(context, data_dict)
-            upload_path = storage_path + '/resources/' + x['id'][0:3] + "/" + x['id'][3:6]
-            upload_filename = x['id'][6:]
-            filepath = Path(os.path.join(upload_path, upload_filename))
-            filepath.parent.mkdir(parents=True, exist_ok=True)
-            f.save(os.path.join(upload_path, upload_filename))
+            file_name = os.path.join(storage_path, f.filename)
+            f.save(file_name)
+
+            object_name = '/resources/' + x['id'] + '/' + f.filename
+
+            try:
+                response = s3_client.upload_file(file_name, bucket, object_name)
+            except ClientError as e:
+                logging.error(e)
+            
+            os.remove(file_name)
+            
 
         extra_vars= {
             'pkg_dict': pkg_dict
