@@ -35,12 +35,14 @@ except:
 aws_access_key_id = config.get('ckanext.s3filestore.aws_access_key_id')
 aws_secret_access_key = config.get('ckanext.s3filestore.aws_secret_access_key')
 bucket = config.get('ckanext.s3filestore.aws_bucket_name')
+aws_region = config.get('ckanext.s3filestore.region_name')
 session = boto3.session.Session()
 s3_client = session.client(
     service_name='s3',
     aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key,
-    endpoint_url=config.get('ckanext.s3filestore.host_name', None)
+    endpoint_url=config.get('ckanext.s3filestore.host_name', None),
+    region_name=aws_region
 )
 
 
