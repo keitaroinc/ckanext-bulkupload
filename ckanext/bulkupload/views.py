@@ -188,7 +188,7 @@ def bulk_resource_upload(pkg_name):
             log.info(file_name)
             f.save(file_name)
 
-            object_name = '/resources/' + x['id'] + '/' + url_striped
+            object_name = 'resources/' + x['id'] + '/' + url_striped
             log.info("=========================")
             log.info(object_name)
             log.info(x)
