@@ -188,12 +188,14 @@ def bulk_resource_upload(pkg_name):
             log.info(file_name)
             f.save(file_name)
 
-            object_name = url_striped
+            object_name = '/resources/' + x['id'] + '/' + url_striped
             log.info("=========================")
             log.info(object_name)
 
             try:
                 response = s3_client.upload_file(file_name, bucket, object_name)
+                log.info("OBJECT NAME!!!!!")
+                log.info(object_name)
                 log.info("BUCKET!!!!!!!")
                 log.info(bucket)
                 log.info("RESPONSE!!!!!!!!!!")
