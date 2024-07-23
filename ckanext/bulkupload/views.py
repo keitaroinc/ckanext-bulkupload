@@ -29,8 +29,6 @@ tuplize_dict = logic.tuplize_dict
 bulkupload = Blueprint("bulkupload", __name__)
 try:
     storage_path = config.get('ckan.storage_path')
-    log.info("12333333333333333333333")
-    log.info(storage_path)
 except:
     log.critical('''Please specify a ckan.storage_path in your config
                          for your uploads''')
@@ -184,24 +182,12 @@ def bulk_resource_upload(pkg_name):
             x = tk.get_action("resource_create")(context, data_dict)
             unique_filename = str(uuid.uuid4())[:8] + str(f.filename)
             file_name = os.path.join(storage_path, unique_filename)
-            log.info("FILE NAMEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-            log.info(file_name)
             f.save(file_name)
 
             object_name = 'resources/' + x['id'] + '/' + url_striped
-            log.info("=========================")
-            log.info(object_name)
-            log.info(x)
 
             try:
                 response = s3_client.upload_file(file_name, bucket, object_name)
-                log.info("OBJECT NAME!!!!!")
-                log.info(object_name)
-                log.info("BUCKET!!!!!!!")
-                log.info(bucket)
-                log.info("RESPONSE!!!!!!!!!!")
-                log.info(response)
-
             except ClientError as e:
                 logging.error(e)
             
