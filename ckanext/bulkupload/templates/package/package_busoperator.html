@@ -14,7 +14,7 @@
     {{ form.input('date-start', type='date', id='field-date-start',  label=_('Date start'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>
     {{ form.input('date-end', type='date', id='field-date-end',  label=_('Date end'), value='', error='') }}
-    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>  
+    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date end') }}</small></div>  
     
 
     <div class="form-group control-medium">
@@ -56,3 +56,23 @@
   {% endblock %}
 {% endblock %}
 
+
+<script>
+
+  document.getElementById("field-dataset_start_date").addEventListener("input", updateEndDateMin);
+  
+  function updateEndDateMin() {
+      // Get the value of the start date input
+      const startDateInput = document.getElementById("field-date-start");
+      const startDateValue = startDateInput.value;
+
+      // Set the minimum allowed value for the end date input
+      const endDateInput = document.getElementById("field-date-end");
+      endDateInput.min = startDateValue;
+
+      // Enable the end date input
+      endDateInput.disabled = false;
+  }
+
+
+</script>
