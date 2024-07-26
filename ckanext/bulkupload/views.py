@@ -96,7 +96,7 @@ def package_busoperator(errors=None):
         data_dict = {
             'name': name_validated,
             'title': form_data['title'],
-            'private': False,
+            'private': True,
             'status': 'active',
             'owner_org': form_data['owner_org'],
             'dataset_start_date': form_data['date-start'],
