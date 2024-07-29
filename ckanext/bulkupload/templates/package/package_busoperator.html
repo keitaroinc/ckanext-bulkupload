@@ -6,36 +6,49 @@
 
 <p> </p>
 {% if request.args.get('errors') %}
-  <p class="text-danger">That dataset name allready exists</p>
+  <p class="text-danger">That dataset name already exists</p>
 {% endif %}
-<form  id="bulk_upload_form" method="post" enctype="multipart/form-data">
-    {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='eg. TransX data') }}
+<form id="bulk_upload_form" method="post" enctype="multipart/form-data">
+    {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='e.g. TransX data') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  
-    {{ form.input('date-start', type='date', id='field-date-start',  label=_('Date start'), value='', error='') }}
+    {{ form.input('date-start', type='date', id='field-date-start', label=_('Date start'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>
-    {{ form.input('date-end', type='date', id='field-date-end',  label=_('Date end'), value='', error='') }}
+    {{ form.input('date-end', type='date', id='field-date-end', label=_('Date end'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date end') }}</small></div>  
-    
-
+   
     <div class="form-group control-medium">
       <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
       <div class="controls">
         <select id="field-organizations" name="owner_org" data-module="autocomplete">
-
           {% for organization in org_list %}
-          {# get out first org from users list only if there is not an existing org #}
           <option value="{{ organization.id }}" {% if selected_org %} selected="selected" {% endif %}>{{ organization.display_name }}</option>
           {% endfor %}
         </select>
       </div>
     </div>
 
-
-
     <div style="display:flex; gap:10px">
-      <button type='submit', class ='btn btn-primary', icon='plus-square'>{{_('Create Dataset')}}</button>
+      <button type='submit' class='btn btn-primary' icon='plus-square'>{{_('Create Dataset')}}</button>
     </div>
   </form>
+
+<script>
+  // Get the start and end date input elements
+  const startDateInput = document.getElementById('field-date-start');
+  const endDateInput = document.getElementById('field-date-end');
+
+  // Function to update the min attribute of the end date input
+  function updateEndDateMin() {
+    if (startDateInput.value) {
+      endDateInput.min = startDateInput.value;
+    } else {
+      endDateInput.min = '';
+    }
+  }
+
+  startDateInput.addEventListener('change', updateEndDateMin);
+</script>
+
 {% endblock %}
 {% endblock %}
 
@@ -56,23 +69,3 @@
   {% endblock %}
 {% endblock %}
 
-
-<script>
-
-  document.getElementById("field-dataset_start_date").addEventListener("input", updateEndDateMin);
-  
-  function updateEndDateMin() {
-      // Get the value of the start date input
-      const startDateInput = document.getElementById("field-date-start");
-      const startDateValue = startDateInput.value;
-
-      // Set the minimum allowed value for the end date input
-      const endDateInput = document.getElementById("field-date-end");
-      endDateInput.min = startDateValue;
-
-      // Enable the end date input
-      endDateInput.disabled = false;
-  }
-
-
-</script>
