@@ -6,7 +6,7 @@
 
 <p> </p>
 {% if request.args.get('errors') %}
-  <p class="text-danger">That dataset name already exists</p>
+  <p class="text-danger">Please fill the dataset title</title></p>
 {% endif %}
 <form id="bulk_upload_form" method="post" enctype="multipart/form-data">
     {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='e.g. TransX data') }}
