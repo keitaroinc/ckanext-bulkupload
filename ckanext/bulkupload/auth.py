@@ -1,5 +1,6 @@
 import ckan.plugins.toolkit as toolkit
 
+# Auth functions for resource upload
 
 def bulk_resource_upload(context, data_dict):
     userobj = context.get('auth_user_obj')
