@@ -4,6 +4,9 @@
 {% block primary_content %}
 <p> </p>
   {% block form %}
+    {% if errors %}
+  <p class="text-danger">Please choose a file</p>
+{% endif %}
   <form id="bulk_upload_form" method="post" enctype="multipart/form-data">
     {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value=pkg_dict.title, error="", placeholder='eg. TransX data') }}
       <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  

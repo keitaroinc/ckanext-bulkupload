@@ -160,6 +160,12 @@ def bulk_resource_upload(pkg_name):
         pkg_dict = get.package_show(context, pkg_name_dict)
         uploaded_files = flask.request.files.getlist("file[]")
 
+        if not uploaded_files or not any(f for f in uploaded_files):
+            errors = 'Please choose a file'
+            extra_var = {'errors': errors,
+                         'pkg_dict': pkg_dict}
+            return base.render('package/resource_busoperator.html', extra_var)
+
         # For newly created datasets
         if pkg_dict['state'] != 'active':
             patch_package_data = {
