@@ -101,6 +101,7 @@ def package_busoperator(errors=None):
             'owner_org': form_data['owner_org'],
             'dataset_start_date': form_data['date-start'],
             'dataset_end_date': form_data['date-end'],
+            'type_of_dataset': 'txc_data',
         }
         try:
             x = tk.get_action("package_create")(context, data_dict)
