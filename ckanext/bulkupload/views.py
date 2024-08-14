@@ -174,7 +174,7 @@ def bulk_resource_upload(pkg_name):
             }
             tk.get_action("package_patch")(context, patch_package_data)
 
-        #The for loop stays for future multi files upload posibility
+        # This loop stays for future multi files upload possibility
         for f in uploaded_files:
 
             url_striped = re.sub(r"[)()]+", "", f.filename)
