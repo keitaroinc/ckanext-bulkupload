@@ -46,7 +46,7 @@ s3_client = session.client(
     region_name=aws_region
 )
 
-# Package busoperator
+
 def package_busoperator(errors=None):
     
     if flask.request.method == 'GET':
@@ -113,7 +113,7 @@ def package_busoperator(errors=None):
             return redirect(h.url_for('bulkupload.package_busoperator', errors=errors))
 
 
-# Bulk resource upload
+
 def bulk_resource_upload(pkg_name):
 
     if flask.request.method == 'GET':
