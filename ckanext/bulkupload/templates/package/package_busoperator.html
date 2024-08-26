@@ -6,11 +6,17 @@
 
 <p> </p>
 {% if request.args.get('errors') %}
-  <p class="text-danger">Please fill the dataset title</title></p>
+  <p class="text-danger">A dataset with this title already exists.</title></p>
 {% endif %}
 <form id="bulk_upload_form" method="post" enctype="multipart/form-data">
-    {{ form.input('title', id='field-dataset-title', label=_('Dataset Title'), value="", error="", placeholder='e.g. TransX data') }}
-    <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('The name of the dataset') }}</small></div>  
+    <label for="field-dataset-title">{{ _('Dataset Title') }}</label>
+    <input type="text" name="title" id="field-dataset-title"
+       placeholder="{{ _('e.g. TransX data') }}"
+       class="form-control" required>
+    <br>
+    <div style="margin: -20px 0px 20px 0px;">
+    <small>{{ form.info('The name of the dataset') }}</small>
+    </div>
     {{ form.input('date-start', type='date', id='field-date-start', label=_('Date start'), value='', error='') }}
     <div style="margin:-20px 0px 20px 0px;"><small>{{ form.info('Date start') }}</small></div>
     {{ form.input('date-end', type='date', id='field-date-end', label=_('Date end'), value='', error='') }}
@@ -34,22 +40,22 @@
     </div>
   </form>
 
-<script>
-  // Get the start and end date input elements
-  const startDateInput = document.getElementById('field-date-start');
-  const endDateInput = document.getElementById('field-date-end');
-
-  // Function to update the min attribute of the end date input
-  function updateEndDateMin() {
-    if (startDateInput.value) {
-      endDateInput.min = startDateInput.value;
-    } else {
-      endDateInput.min = '';
+  <script>
+    // Get the start and end date input elements
+    const startDateInput = document.getElementById('field-date-start');
+    const endDateInput = document.getElementById('field-date-end');
+  
+    // Function to update the min attribute of the end date input
+    function updateEndDateMin() {
+      if (startDateInput.value) {
+        endDateInput.min = startDateInput.value;
+      } else {
+        endDateInput.min = '';
+      }
     }
-  }
-
-  startDateInput.addEventListener('change', updateEndDateMin);
-</script>
+  
+    startDateInput.addEventListener('change', updateEndDateMin);
+  </script>
 
 {% endblock %}
 {% endblock %}
@@ -70,4 +76,3 @@
     </section>
   {% endblock %}
 {% endblock %}
-
