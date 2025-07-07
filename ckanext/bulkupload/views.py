@@ -33,16 +33,17 @@ except:
     log.critical('''Please specify a ckan.storage_path in your config
                          for your uploads''')
     
-aws_access_key_id = os.getenv('CKANEXT__S3FILESTORE__AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.getenv('CKANEXT__S3FILESTORE__AWS_SECRET_ACCESS_KEY')
-bucket = os.getenv('CKANEXT__S3FILESTORE__AWS_BUCKET_NAME')
-aws_region = os.getenv('CKANEXT__S3FILESTORE__REGION_NAME')
+aws_access_key_id = os.getenv('CKANEXT__S3FILESTORE__AWS_ACCESS_KEY_ID', config.get('ckanext.s3filestore.aws_access_key_id'))
+aws_secret_access_key = os.getenv('CKANEXT__S3FILESTORE__AWS_SECRET_ACCESS_KEY', config.get('ckanext.s3filestore.aws_secret_access_key'))
+bucket = os.getenv('CKANEXT__S3FILESTORE__AWS_BUCKET_NAME', config.get('ckanext.s3filestore.aws_bucket_name'))
+aws_region = os.getenv('CKANEXT__S3FILESTORE__REGION_NAME', config.get('ckanext.s3filestore.region_name'))
+s3_filestore_host_name = os.getenv('CKANEXT__S3FILESTORE__HOST_NAME', config.get('ckanext.s3filestore.host_name'))
 session = boto3.session.Session()
 s3_client = session.client(
     service_name='s3',
     aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key,
-    endpoint_url=os.getenv('CKANEXT__S3FILESTORE__HOST_NAME', None),
+    endpoint_url=s3_filestore_host_name,
     region_name=aws_region
 )
 
@@ -101,7 +102,9 @@ def package_busoperator(errors=None):
             'owner_org': form_data['owner_org'],
             'dataset_start_date': form_data['date-start'],
             'dataset_end_date': form_data['date-end'],
-            'type_of_dataset': 'txc_data',
+            'type_of_dataset': form_data['dataset_type'],
+            'type': form_data['dataset_type'],
+            'author': g.user , 
         }
         try:
             x = tk.get_action("package_create")(context, data_dict)
