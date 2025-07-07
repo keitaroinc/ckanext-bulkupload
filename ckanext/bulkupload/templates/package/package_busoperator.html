@@ -9,6 +9,10 @@
   <p class="text-danger">A dataset with this title already exists.</title></p>
 {% endif %}
 <form id="bulk_upload_form" method="post" enctype="multipart/form-data">
+    {{ form.select('dataset_type', label=_('Dataset type'), options=[
+        {'name':'txc_data', 'value': 'txc_data', 'text':_('TransXChange Dataset')},
+        {'name': 'netex_data', 'value': 'netex_data', 'text':_('Fares Dataset')}], 
+        selected='txc_data', error=errors.dataset_type) }}
     <label for="field-dataset-title">{{ _('Dataset Title') }}</label>
     <input type="text" name="title" id="field-dataset-title"
        placeholder="{{ _('e.g. TransX data') }}"
